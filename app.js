@@ -9,7 +9,7 @@ var logger = require('morgan');
 var compression = require('compression');
 var session = require('express-session');
 var path = require('path');
-//var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 var csrf = require('csurf');
 var helmet = require('helmet');
 var hash = require('pbkdf2-password')();
@@ -35,8 +35,10 @@ app.use(flash());
 app.use(helmet());
 app.use(compression());
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+//app.use(express.json());
+//app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 var staticOptions = { maxAge: '1h' };
@@ -60,7 +62,6 @@ app.use(function(req, res, next) {
 });
 
 app.use(function(req, res, next) {
-  res.locals.title = 'Z-PAS';
   if (req.session.user) {
     res.locals.login = 1;
   } else if (req.path != '/login') {
