@@ -6,11 +6,31 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^2.5.0",
+    "body-parser": "^1.18.1",
+    "bootstrap": "^3.3.7",
+    "bower": "^1.8.2",
+    "compression": "^1.7.1",
+    "config": "^1.26.2",
+    "connect-flash": "^0.1.1",
+    "connect-memcached": "^0.2.0",
     "cookie-parser": "~1.4.3",
+    "csurf": "^1.9.0",
+    "csv-export": "^1.0.1",
+    "csvtojson": "^1.1.9",
     "debug": "~2.6.9",
+    "dotenv": "^4.0.0",
     "express": "~4.16.0",
+    "express-session": "^1.15.4",
+    "helmet": "^3.8.1",
     "http-errors": "~1.6.2",
+    "ioredis": "^3.2.2",
+    "jquery": "^3.2.1",
+    "memory-cache": "^0.2.0",
+    "mongodb": "^3.1.0-beta4",
     "morgan": "~1.9.0",
+    "nconf": "^0.8.4",
+    "pbkdf2-password": "^1.2.1",
     "pug": "2.0.0-beta11"
   }
 }

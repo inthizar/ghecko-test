@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  .container
+    .col-lg-3
+    .col-lg-6
+      if (true)
+        form(class='form-horizontal' action='#' method='post' name='loginForm')
+          input(type='hidden' name='_csrf' value=_csrf)
+          .form-group
+            label(for='email' class='col-sm-2 control-label') Username
+            .col-sm-10
+              input(name='username' type='text' class='form-control' id='username' placeholder='Enter username')
+          .form-group
+            label(for='password' class='col-sm-2 control-label') Password
+            .col-sm-10
+              input(name='password' type='password' class='form-control' id='password' placeholder='Enter password')
+          .form-group
+            div(class='col-sm-offset-2 col-sm-10')
+              button(type='submit' class='btn btn-primary pull-right') Sign in
+        hr
