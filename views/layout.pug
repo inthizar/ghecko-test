@@ -1,7 +1,68 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+  include head.pug
   body
+    .container
+      nav(class='navbar navbar-inverse')
+        div(class='container-fluid')
+          div(class='navbar-header')
+            button(
+              type='button' class='navbar-toggle collapsed' data-toggle='collapse' data-target='#main-navbar' aria-expanded='false' aria-controls='navbar'
+            ) 
+              span(class='sr-only') Toggle navigation 
+              span(class='icon-bar') 
+              span(class='icon-bar') 
+              span(class='icon-bar')
+            a(class='navbar-brand' href='/')
+              li.dropdown
+                a(class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false')
+                  span(class='glyphicon glyphicon-th' aria-hidden='true')
+                if login
+                  ul.dropdown-menu
+                    li
+                      a(href='/auth/logout') Logout                   
+      if error
+        div(class='alert alert-danger alert-dismissible' role='alert')
+          button(type='button' class='close' data-dismiss='alert' aria-label='Close')
+            span(aria-hidden='true') &times;
+          span(class='glyphicon glyphicon-remove-sign' aria-hidden='true')
+          span(class='sr-only') Error:
+          span  #{error}
+      if success
+        div(class='alert alert-success alert-dismissible' role='alert')
+          button(type='button' class='close' data-dismiss='alert' aria-label='Close')
+            span(aria-hidden='true') &times;
+          span(class='glyphicon glyphicon-ok-sign' aria-hidden='true')
+          span(class='sr-only') Success:
+          span  #{success}
+      if info
+        div(class='alert alert-info alert-dismissible' role='alert')
+          button(type='button' class='close' data-dismiss='alert' aria-label='Close')
+            span(aria-hidden='true') &times;
+          span(class='glyphicon glyphicon-info-sign' aria-hidden='true')
+          span(class='sr-only') Info:
+          span  #{info}
+      if warning
+        div(class='alert alert-warning alert-dismissible' role='alert')
+          button(type='button' class='close' data-dismiss='alert' aria-label='Close')
+            span(aria-hidden='true') &times;
+          span(class='glyphicon glyphicon-exclamation-sign' aria-hidden='true')
+          span(class='sr-only') Warning:
+          span  #{warning}
+
+      div(class='alert alert-dismissible js-alert' role='alert' style='display:none')
+
+      .spinner
+        img.loader-gif
+
+      noscript
+        style(type='text/css').
+          a,button,input {cursor: not-allowed; pointer-events: none;}
+          
+        div(class='alert alert-danger' role='alert')
+          span(class='glyphicon glyphicon-minus-sign' aria-hidden='true')
+          span(class='sr-only') Error:
+          span  This site requires javascript to function. Please enable it in your browser and reload this page again.
+
     block content
+
