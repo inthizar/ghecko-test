@@ -17,12 +17,14 @@ router.get('/', function(req, res, next) {
 
 router.post('/', function(req, res, next) {
   Auth.login(req.body.username, req.body.password, function(err, user) { 
+console.log(req.body,user);
     if (!user) {
       req.flash('error', 'Authentication failed');
       res.redirect('/login');
     }  else {
       req.session.regenerate(function(){
         req.session.user = user;
+console.log(737337,user, req.session.user);
         res.redirect('/');
       });
     }

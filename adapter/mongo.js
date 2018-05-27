@@ -1,3 +1,4 @@
+const objectID = require('mongodb').ObjectID;
 const MongoClient = require('mongodb').MongoClient;
  
 // Connection URL
@@ -25,6 +26,10 @@ MongoClient.connect(url, {useNewUrlParser: true}, function(err, client) {
   //client.close();
 });
 });
+}
+
+Db.genId = function() {
+  return (new objectID()).toHexString();
 }
 
 module.exports = Db;

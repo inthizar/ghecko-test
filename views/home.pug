@@ -2,4 +2,15 @@ extends layout
 
 block content
   .container
-    h3(class="lead text-left") Profile Details
+    h3(class="lead text-left") Upload
+    .col-lg-6
+      if (true)
+        form(class='form-horizontal' action='/upload' method='post' name='uploadForm' encType="multipart/form-data")
+          input(type='hidden' name='_csrf' value=_csrf)
+          .form-group
+            label(for='uploadFile' class='col-sm-2 control-label') File
+            .col-sm-10
+              input(name='uploadFile' type='file' class='form-control' id='' placeholder='Enter file')
+          .form-group
+            div(class='col-sm-offset-2 col-sm-10')
+              button(type='submit' class='btn btn-primary pull-right') Upload

@@ -9,22 +9,16 @@ var logger = require('morgan');
 var compression = require('compression');
 var session = require('express-session');
 var path = require('path');
-var bodyParser = require('body-parser');
 var csrf = require('csurf');
 var helmet = require('helmet');
 var hash = require('pbkdf2-password')();
 var flash = require('connect-flash');
+var fileUpload = require('express-fileupload');
 
 //var perform = require('./routes/perform');
 var auth = require('./routes/auth');
 var home = require('./routes/home');
 
-var mongo = require('./adapter/mongo');
-mongo.connect().then(function(db) {
-db.collection('orders').find({}).toArray(function(err, doc) {
-    console.log(doc);
-  });  
-});
 var app = express();
 
 // view engine setup
@@ -35,26 +29,25 @@ app.use(flash());
 app.use(helmet());
 app.use(compression());
 app.use(logger('dev'));
-//app.use(express.json());
-//app.use(express.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 var staticOptions = { maxAge: '1h' };
 app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist'), staticOptions));
 app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist'), staticOptions));
 app.use(session({
-    secret: process.env.SESSION_SECRET,
+    secret: 'super',//:process.env.SESSION_SECRET,
     name: 'sessionId',
     resave: true,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: true,
-      maxAge: 1000*60*process.env.SESSION_AGE, // 30 mins
+      secure: false,
+      maxAge: 1000*60*30//process.env.SESSION_AGE, // 30 mins
     }
 }));
+app.use(fileUpload());
 app.use(csrf());
 app.use(function(req, res, next) {
   res.locals._csrf = req.csrfToken();
@@ -78,7 +71,7 @@ app.use(function(req, res, next){
   next();
 });
 
-app.use('/login', auth);
+app.use(['/login', '/auth'], auth);
 app.use('/', home);
 //app.use('/perform', perform);
 

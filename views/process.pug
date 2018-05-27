@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  .container
+    h3(class="lead text-left") Transaction query
+    .col-lg-12
+      if (true)
+        form(class='form-horizontal' action='#' method='post' name='queryForm')
+          input(type='hidden' name='_csrf' value=_csrf)
+          .form-group
+            label(for='objectType' class='col-sm-2 control-label') Object Type
+            .col-sm-10
+              input(name='objectType' type='text' class='form-control' id='' placeholder='Enter type')
+          .form-group
+            label(for='objectId' class='col-sm-2 control-label') Object Id
+            .col-sm-10
+              input(name='objectId' type='text' class='form-control' id='' placeholder='Enter ID')
+          .form-group
+            label(for='timestamp' class='col-sm-2 control-label') Timestamp
+            .col-sm-10
+              input(name='timestamp' type='text' class='form-control' id='' placeholder='Enter timestamp')
+          .form-group
+            div(class='col-sm-offset-2 col-sm-10')
+              button(type='submit' class='btn btn-primary pull-right') Check
+
+      h5(class="lead text-left") Output
+      p #{data ? JSON.stringify(data) : 'No Data'}  
