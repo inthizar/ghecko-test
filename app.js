@@ -15,7 +15,8 @@ var hash = require('pbkdf2-password')();
 var flash = require('connect-flash');
 var fileUpload = require('express-fileupload');
 
-//var perform = require('./routes/perform');
+var mongo = require('./adapter/mongo');
+
 var auth = require('./routes/auth');
 var home = require('./routes/home');
 
@@ -73,7 +74,8 @@ app.use(function(req, res, next){
 
 app.use(['/login', '/auth'], auth);
 app.use('/', home);
-//app.use('/perform', perform);
+
+mongo.init();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -24,4 +24,13 @@ Db.genId = function() {
   return (new objectID()).toHexString();
 }
 
+Db.init = function() {
+  Db.connect().then(function(db) {
+    db.collection('transactions').createIndex({objectId: 1, objectType: 'text', tstamp: -1}, { unique:true }, function(err, idx) {
+      if(err) console.error(err);
+      else console.log('index created');
+    });
+  });
+}
+
 module.exports = Db;
