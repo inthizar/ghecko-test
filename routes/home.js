@@ -6,7 +6,6 @@ var async = require('async');
 
 router.all('/', function(req, res, next) {
   var user = req.session.user;
-console.log(req.body);
   async.waterfall([
     function(cb) {
       if(req.method == 'POST') {
@@ -29,8 +28,6 @@ router.all('/upload', function(req, res, next) {
       next();
     }
     var file = req.files.uploadFile;
-    console.log(file);
-    console.log(file.data.toString());
     var csvData = csvjson.toArray(file.data.toString(), {delimiter: ',', quote: '"'});  
     if(!csvData.length) {
       req.flash('warning', 'No data.');
