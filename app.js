@@ -37,14 +37,14 @@ var staticOptions = { maxAge: '1h' };
 app.use('/bootstrap', express.static(path.join(__dirname, 'node_modules/bootstrap/dist'), staticOptions));
 app.use('/jquery', express.static(path.join(__dirname, 'node_modules/jquery/dist'), staticOptions));
 app.use(session({
-    secret: 'super',//:process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET,
     name: 'sessionId',
     resave: true,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
       secure: false,
-      maxAge: 1000*60*30//process.env.SESSION_AGE, // 30 mins
+      maxAge: 1000*60*process.env.SESSION_AGE
     }
 }));
 app.use(fileUpload());
